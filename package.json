@@ -1,0 +1,25 @@
+{
+  "name": "Backend-Keep-Flux-V2.0",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "create:migrate": "knex migrate:make",
+    "create:db": "knex migrate:latest"
+  },
+  "keywords": [],
+  "author": "Pedro Kirstein",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "html-pdf": "^2.2.0",
+    "knex": "^0.21.3",
+    "sqlite3": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
