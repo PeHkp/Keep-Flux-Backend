@@ -1,39 +1,39 @@
-const connection = require("../database/connection")
+const connection = require("../database/connection");
 
 module.exports = {
+  async produtos(request, response) {
+    const empresa_id = request.headers.authorization;
 
-    async produtos(request,response) {
+    const produtos = await connection("Produtos")
+      .where("empresa_id", empresa_id)
+      .select("*");
 
-        const empresa_id = request.headers.authorization
+    return response.json(produtos);
+  },
+  async pedido(request, response) {
+    const pedido = await connection("Pedido")
+      .join("Clientes", "Clientes.cpf", "=", "Pedido.cpfDoComprador")
+      .select(["Pedido.*", "Clientes.nome", "Clientes.endereco"]);
 
-        const produtos = await connection("Produtos").where("empresa_id", empresa_id).select("*")
+    return response.json(pedido);
+  },
+  async clientes(request, response) {
+    const empresa_id = request.headers.authorization;
 
-        return response.json(produtos)
-    },
-    async pedido(request,response) {
+    const clientes = await connection("Clientes")
+      .where("empresa_id", empresa_id)
+      .select("*");
 
-        const empresa_id = request.headers.authorization
+    return response.json(clientes);
+  },
 
-        const pedido = await connection("Pedido").where("empresa_id", empresa_id).select("*")
+  async entrega(request, response) {
+    const empresa_id = request.headers.authorization;
 
-        return response.json(pedido)
-    },
-    async clientes(request,response) {
+    const entrega = await connection("Entrega")
+      .where("empresa_id", empresa_id)
+      .select("*");
 
-        const empresa_id = request.headers.authorization
-
-        const clientes = await connection("Clientes").where("empresa_id", empresa_id).select("*")
-
-        return response.json(clientes)
-    },
-    
-    async entrega(request,response) {
-
-        const empresa_id = request.headers.authorization
-
-        const entrega = await connection("Entrega").where("empresa_id", empresa_id).select("*")
-
-        return response.json(entrega)
-    },
-    
-}
+    return response.json(entrega);
+  },
+};

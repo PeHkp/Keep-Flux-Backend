@@ -1,4 +1,6 @@
 const connection = require("../database/connection");
+const { where } = require("../database/connection");
+
 
 module.exports = {
   
@@ -16,6 +18,15 @@ module.exports = {
     const empresa_id = request.headers.authorization;
 
     const value = valor * quantidade;
+
+    const produto = await connection("Produtos")
+      .where("Produtos.title", nomeDoProduto)
+      .select("quantidade")
+      .first();
+
+      
+      const newQunatidade = produto.quantidade - quantidade
+      await connection('Produtos').update("quantidade",newQunatidade)
 
     const [id] = await connection("Pedido").insert({
       cpfDoComprador,

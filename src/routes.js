@@ -17,6 +17,7 @@ routes.delete("/empresas",EmpresaController.delete)
 
 routes.post("/clientes",ClienteController.create)
 routes.delete("/clientes/:id",ClienteController.delete)
+routes.put('/clientes/:id', ClienteController.edit)
 
 routes.post("/produtos", ProdutoController.create)
 routes.delete("/produtos/:id",ProdutoController.delete)
