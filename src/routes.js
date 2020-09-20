@@ -1,4 +1,5 @@
 const express = require("express")
+const multer = require('multer')
 
 const EmpresaController = require("./controllers/EmpresaController")
 const ClienteController = require("./controllers/ClienteController")
@@ -9,7 +10,11 @@ const ProfileController = require("./controllers/ProfileController")
 const LoginController = require("./controllers/LoginController")
 const PdfController = require("./controllers/PdfController")
 
+const multerConfig = require('./config/multer')
+
 const routes = express.Router()
+
+const upload = multer(multerConfig)
 
 routes.get("/empresas",EmpresaController.index)
 routes.post("/empresas",EmpresaController.create)
@@ -19,7 +24,7 @@ routes.post("/clientes",ClienteController.create)
 routes.delete("/clientes/:id",ClienteController.delete)
 routes.put('/clientes/:id', ClienteController.edit)
 
-routes.post("/produtos", ProdutoController.create)
+routes.post("/produtos",upload.single("linkDaImagem"), ProdutoController.create)
 routes.delete("/produtos/:id",ProdutoController.delete)
 routes.put('/produtos/:id', ProdutoController.edit)
 

@@ -8,8 +8,7 @@ module.exports = {
       title,
       description,
       value,
-      quantidade,
-      linkDaImagem,
+      quantidade
     } = request.body;
     const empresa_id = request.headers.authorization;
 
@@ -18,7 +17,7 @@ module.exports = {
       description,
       value,
       quantidade,
-      linkDaImagem,
+      linkDaImagem: `https://keep-flux.herokuapp.com/uploads/${request.file.filename}`,
       empresa_id,
     });
 
@@ -36,7 +35,7 @@ module.exports = {
     if (produto.empresa_id !== empresa_id) {
       return response
         .status(401)
-        .json({ erro: "Operacao nao pode ser completada" });
+        .json({ erro: "Operação nao pode ser completada" });
     }
     await connection("Produtos").where("id", id).delete();
 

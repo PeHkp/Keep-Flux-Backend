@@ -4,9 +4,11 @@ module.exports = {
   async produtos(request, response) {
     const empresa_id = request.headers.authorization;
 
-    const produtos = await connection("Produtos")
+    let produtos = await connection("Produtos")
       .where("empresa_id", empresa_id)
       .select("*");
+
+    produtos = await produtos.reverse()
 
     return response.json(produtos);
   },
