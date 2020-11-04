@@ -38,12 +38,24 @@ async edit(request,response){
     isCheck
   } = request.body;
 
-  await connection("check-list")
+  if (resultado_esperado) {
+    await connection("check-list")
       .where("id", id)
-      .update({ resultado_esperado, quest, isCheck
+      .update({ resultado_esperado
       });
-
-    return response.status(204).send();
+  } 
+  if(quest){
+    await connection("check-list")
+    .where("id", id)
+    .update({ quest
+    });
+  }
+  if(isCheck){
+    await connection("check-list")
+      .where("id", id)
+      .update({ isCheck
+      });
+  }
 
   return response.status(204).send()
 },
